@@ -1,0 +1,27 @@
+name: sim
+prefix: ""
+
+topology:
+  defaults:
+    kind: nokia_srsim
+  kinds:
+    nokia_srsim:
+      image: registry.srlinux.dev/pub/nokia_srsim:25.10.R1
+      license: ../license-srsim25.txt
+    linux:
+      image: ghcr.io/mfzhsn/network-multitool-sshd:0.0.2
+  nodes:
+    ixr: #IXR-R6d
+      kind: nokia_srsim
+      type: ixr-r6d
+      components:
+        - slot: A
+        - slot: 1
+          env:
+            NOKIA_SROS_CARD: iom-ixr-r6d
+            NOKIA_SROS_MDA_1: m5-100g-qsfp28
+      startup-config: ./startup_config/ixr.partial.txt
+
+  links:
+  #Connections of the first ring
+    # - endpoints: ["R01-IXR:eth5", "R02-IXR:eth3"]
