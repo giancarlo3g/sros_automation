@@ -31,11 +31,16 @@ def get_connections(routers):
             pass
     return connections
 
+def close_connections(connections):
+    for connection in connections:
+        connection.disconnect()
+    print("\n Sessions closed.")
+
 def get_interface(connections):
     config_path = '/nokia-conf:configure/router[router-name="Base"]/interface'
     state_path = '/nokia-state:state/router[router-name="Base"]/interface[interface-name="{0}"]/oper-ip-mtu'
     print(
-        "Router".ljust(25),
+        "\nRouter".ljust(25),
         "Interface Name".ljust(30),
         "Port".ljust(15),
         "IP MTU".ljust(6),
@@ -60,18 +65,60 @@ def get_interface(connections):
                 mtu.ljust(6),
             )
 
+def get_transceivers(connections):
+    f = open('transceiver-serial-number.csv','w')
+    wrdata = "hostname,port,transceiver-serial-number\n"
+    for connection in connections:
+        hostname = connection.running.get("/nokia-conf:configure/system/name")
+        data = connection.running.get('/nokia-state:state/port',filter={'transceiver':{'vendor-serial-number':{}}})
+        for key, value in data.items():
+            wrdata += f"{hostname},{key},{value['transceiver']['vendor-serial-number'].data}\n"
+    f.write(wrdata + '\n')
+    print(wrdata)
+    f.close()
+
+def get_chassis(connections):
+    for connection in connections:
+        data = connection.running.get(
+            '/nokia-state:state/system'
+        )
+        chassis = str(data["platform"])
+        hostname = str(data["oper-name"])
+        version = str(data["version"]["version-number"])
+        print(f"  {hostname}:")
+        print(f"\tchassis: {chassis}")
+        print(f"\tversion: {version}")
 
 def main():
-    print("Hello from pysros-test!")
     routers = []
-
-    router1 = "172.20.20.2"
-    routers.append(router1)
+    routers.append("172.20.20.2")
+    routers.append("172.20.20.3")
 
     connections = get_connections(routers)
-    print(connections)
-    get_interface(connections)
 
+
+    while True:
+        
+        print("\nWelcome to pySROS test environment\n")
+        print("\nSelect an option:")
+        print("1. Get Interfaces")
+        print("2. Get Chassis")
+        print("3. Get Transceivers")
+        print("Type 'exit' to quit")
+        choice = input("Enter choice (1/2/3 or name): ").strip()
+        match choice.lower():
+            case "1" | "interface":
+                get_interface(connections)
+            case "2" | "chassis":
+                get_chassis(connections)
+            case "3" | "transceivers":
+                get_transceivers(connections)
+            case "exit":
+                break
+            case _:
+                print("Invalid choice")
+
+    close_connections(connections)
 
 if __name__ == "__main__":
     main()

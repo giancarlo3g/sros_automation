@@ -54,8 +54,14 @@ configure {
         }
     }
     router "Base" {
-        interface "toTest" {
+        interface "toe2c" {
             port 1/1/c1/1
+            ipv4 {
+                primary {
+                    address 10.10.10.1
+                    prefix-length 30
+                }
+            }
         }
     }
 }
