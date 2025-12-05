@@ -11,6 +11,7 @@ from pysros.management import connect
 #     args = parser.parse_args()
 #     return args
 
+#get connections for an array of routers using IP address
 def get_connections(routers):
     connections = []
     # args = get_args()
