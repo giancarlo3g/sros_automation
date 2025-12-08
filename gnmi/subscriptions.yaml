@@ -1,0 +1,9 @@
+  # subscriptions.yaml
+hosts:
+  - ip: "172.20.20.2"
+    username: "admin"
+    password: "NokiaSros1!"
+    subscriptions:
+  #   # === Port-level attributes ===
+    - path: "/state/port[port-id=1/1/c1/1]/oper-state"
+      mode: "on_change"

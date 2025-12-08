@@ -1,0 +1,340 @@
+  # subscriptions.yaml
+hosts:
+  - ip: "172.20.40.222"
+    username: "admin"
+    password: "NokiaSros1!"
+    subscriptions:
+  #   # === Port-level attributes ===
+  #   - path: "/state/port[port-id=1/1/c1]/port-id"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/down-reason"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/far-end-port-id"
+  #     mode: "on_change"
+  #   #- path: "/state/port[port-id=1/1/c1]/fp-number"
+  #   #  mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/hardware-mac-address"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/interface-group-handler-index"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/mac-chip-number"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/number-of-channels"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/oper-state"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/oper-state-last-changed"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/otu-capable"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/physical-link"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/port-class"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/port-state"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/previous-state"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/protocols-supported"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/type"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/user-assigned-mac"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/rs-fec-oper-mode"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/licensed"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/if-index"
+  #     mode: "on_change"
+
+  #   # === Transceiver attributes ===
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/connector-code"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/connector-type"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/diagnostics-capable"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/equipped"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/laser-wavelength"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/link-length-information"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/media"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/model-number"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/number-of-lanes"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/oper-state"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/optical-compliance"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/optical-compliance-extension"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/sff-equipped"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/type"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/vendor-manufacture-date"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/vendor-oui"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/vendor-part-number"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/vendor-serial-number"
+  #     mode: "on_change"
+
+  #   # === Digital Diagnostic Monitoring (DDM) ===
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/failed-thresholds"
+  #     mode: "on_change"
+  #   - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/calibrated"
+  #     mode: "on_change"
+
+      #- path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/temperature/current"
+      #  mode: "sample"
+      #  sample_interval: 5_000_000_000   # every 5 seconds
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/temperature/high-alarm"
+ #      mode: "on_change"
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/temperature/high-warning"
+ #      mode: "on_change"
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/temperature/low-alarm"
+ #      mode: "on_change"
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/temperature/low-warning"
+ #      mode: "on_change"
+
+ #    #- path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/supply-voltage/current"
+ #    #  mode: "sample"
+ #    #  sample_interval: 5_000_000_000   # every 5 seconds
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/supply-voltage/high-alarm"
+ #      mode: "on_change"
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/supply-voltage/high-warning"
+ #      mode: "on_change"
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/supply-voltage/low-alarm"
+ #      mode: "on_change"
+ #    - path: "/state/port[port-id=1/1/c1]/transceiver/digital-diagnostic-monitoring/supply-voltage/low-warning"
+ #      mode: "on_change"
+
+  #    - path: "/state/system/cpu[sample-period=60]/summary"
+  #      mode: "sample"
+  #      sample_interval: 5_000_000_000
+#
+  #    - path: "/state/system/cpu[sample-period=60]/usage"
+  #      mode: "sample"
+  #      sample_interval: 5_000_000_000
+#
+  #    - path: "/state/chassis/temperature/current"
+  #      mode: "sample"
+  #      sample_interval: 5_000_000_000
+#
+  #    - path: "/state/chassis/fan/status"
+  #      mode: "on_change"
+#
+  #    - path: "/state/router/bgp/neighbor[peer-address=192.0.2.1]/session-state"
+  #      mode: "on_change"
+
+        ## SROS ###
+      sros_if_oper_state:
+        paths:
+          - /state/port[port-id=*]/oper-state
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      # sros_vpls_instance_oper_state:
+      #   paths:
+      #     - /state/service/vpls[service-name=*]/oper-state
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      # sros_vpls_instance_oper_service_id:
+      #   paths:
+      #     - /state/service/vpls[service-name=*]/oper-service-id
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      # sros_vpls_instance_vxlan:
+      #   paths:
+      #     - /state/service/vpls[service-name=*]/vxlan
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      # sros_vpls_instance_bgp:
+      #   paths:
+      #     - /state/service/vpls[service-name=*]/bgp
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      sros_if_stats:
+        paths:
+          - /state/port[port-id=*]/statistics
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_if_traffic_rate:
+        paths:
+          - /state/port[port-id=*]/ethernet/oper-speed
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_cpu:
+        paths:
+          - /state/system/cpu[sample-period=300]/system/cpu-usage
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_mem:
+        paths:
+          - /state/system/memory-pools
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      # sros_bgp_stats:
+      #   paths:
+      #     - /state/router[router-name=*]/bgp/statistics
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      # sros_bgp_up_peers:
+      #   paths:
+      #     - state/router[router-name=*]/bgp/convergence/family[family-type=ipv4]
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      # sros_bgp_neighbor_stats:
+      #   paths:
+      #     - /state/router[router-name=*]/bgp/neighbor[ip-address=*]/statistics
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+      # sros_bgp_neighbor_session_state:
+      #   paths:
+      #     - /state/router[router-name=*]/bgp/neighbor[ip-address=*]/statistics/session-state
+      #   mode: stream
+      #   stream-mode: sample
+      #   sample-interval: 5s
+  
+  
+      sros_ipv4_stats:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv4/statistics
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_ipv4_stats_direct:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv4/statistics/direct
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_ipv4_stats_bgp:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv4/statistics/bgp
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_ipv6_stats:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv6/statistics
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_ipv6_bgp_direct:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv6/statistics/direct
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_ipv4_routes:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv4/route[ipv4-prefix=*]
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_ipv6_routes:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv6/route[ipv6-prefix=*]
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_evpn_routes:
+        paths:
+          - /state/router[router-name=*]/bgp/statistics/routes-per-family/evpn
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_evpn_vxlan_vni:
+        paths:
+          - /state/service/vpls[service-name=*]/vxlan/instance[vxlan-instance=*]/destinations/non-ethernet-segment-destination[ip-address=*][vni=*]
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_vxlan_vteps:
+        paths:
+          - /state/service/vxlan/tep[ip-address=*]
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s
+  
+      sros_vxlan_learned_macs:
+        paths:
+          - /state/service/vpls[service-name=*]/fdb/statistics
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s   
+  
+      sros_bgp_routes_stats:
+        paths:
+          - /state/router[router-name=*]/route-table/unicast/ipv4/statistics/bgp
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s  
+  
+      sros_bgp_routes_active:
+        paths:
+          - /state/router[router-name=*]/bgp/neighbor[ip-address=*]/statistics/family-prefix/ipv4/active
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s 
+  
+      sros_bgp_used_routes:
+        paths:
+          - /state/router[router-name=*]/bgp/rib/ipv6-unicast/local-rib/routes[prefix=*][neighbor=*][owner=*][router-instance-origin=*][path-id=*]/used-route
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s 
+  
+      sros_bgp_evpn_routes_active:
+        paths:
+          - /state/router[router-name=*]/bgp/neighbor[ip-address=*]/statistics/family-prefix/evpn/active
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s 
+  
+      sros_bgp_evpn_routes_suppressed:
+        paths:
+          - /state/router[router-name=*]/bgp/neighbor[ip-address=*]/statistics/family-prefix/evpn/suppressed
+        mode: stream
+        stream-mode: sample
+        sample-interval: 5s 

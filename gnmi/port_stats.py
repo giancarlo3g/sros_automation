@@ -1,5 +1,6 @@
 from pygnmi.client import gNMIclient
 from getpass import getpass
+import json
 
 def get_connection(router):
     # Connect to device
@@ -27,9 +28,15 @@ def get_stats(gc):
                 }
             ]
         }
-        for resp in gc.subscribe(sub):
-            print(resp)
 
+        # print(
+        #     "\nTime".ljust(20),
+        #     "Port".ljust(20),
+        #     "in-octects".ljust(20),
+        # )
+        for resp in gc.subscribe(sub):
+            print (resp)
+            
 
 def main():
     routers = []
