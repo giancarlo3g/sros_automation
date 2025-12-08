@@ -22,18 +22,6 @@ def print_table(rows):
     # Print the output passing the data for the rows as an argument to the function.
     table.print(rows)
 
-def key_sorted(key):
-    # Split the key into non-digit and digit parts
-    non_numeric_part, numeric_part = '', ''
-    for char in key:
-        if char.isdigit():
-            numeric_part += char
-        else:
-            non_numeric_part += char
-    return non_numeric_part, int(numeric_part)
-
-
-
 #get connection for a single node
 def get_connection(router):
     user = "admin"
@@ -48,7 +36,6 @@ def get_connection(router):
         print("Failed to connect to", router, ":", error)
         pass
     return connection
-
 
 def get_data(connection):
     port_info = []
@@ -73,7 +60,6 @@ def get_data(connection):
             port_info.append([PortID, PortAdminState, PortOperState, PortPartnum, PortSerialnum])
     print_table(port_info)
 
-
 def main():
     routers = []
     routers.append("172.20.20.2")
@@ -87,8 +73,6 @@ def main():
     connection = get_connection(mgmtip)
     get_data(connection)
     connection.disconnect()
-
-
 
 if __name__ == "__main__":
     main()
