@@ -1,14 +1,17 @@
 # Makefile for installing development environment
 # Supports Debian/Ubuntu and Rocky Linux/RHEL/CentOS
 
-.PHONY: install-all install-python install-uv install-docker install-gnmic install-containerlab detect-os help
+.PHONY: all install-all install-python install-uv install-docker install-gnmic install-containerlab detect-os help
 
-# Default target
+# Main entry point - always detects OS first
+all: detect-os
+
+# This should be the internal target that requires OS to be set
 install-all: install-python install-uv install-docker install-gnmic install-containerlab
 	@echo "✅ All tools installed successfully!"
 
 # Detect operating system
-detect-os::
+detect-os:
 	@echo "🔍 Detecting operating system..."
 	@if [ -f /etc/debian_version ]; then \
 		echo "📋 Detected: Debian/Ubuntu"; \
@@ -20,12 +23,10 @@ detect-os::
 		echo "❌ Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
 	fi
-	@echo $OS
 
 # Install Python
 install-python:
 	@echo "🐍 Installing Python..."
-	@echo $OS
 ifeq ($(OS),debian)
 	sudo apt update
 	sudo apt install -y python3 python3-pip python3-venv
@@ -37,14 +38,12 @@ endif
 # Install uv
 install-uv:
 	@echo "⚡ Installing uv..."
-	@echo $OS
 	curl -LsSf https://astral.sh/uv/install.sh | sh
 	@echo "✅ uv installed (restart shell or run: source ~/.bashrc)"
 
 # Install Docker
 install-docker:
 	@echo "🐳 Installing Docker..."
-	@echo $OS
 ifeq ($(OS),debian)
 	# Remove old versions
 	sudo apt remove -y docker docker-engine docker.io containerd runc || true
@@ -70,7 +69,6 @@ else ifeq ($(OS),rocky)
 	sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 endif
 	# Start and enable Docker
-	@echo $OS
 	sudo systemctl start docker
 	sudo systemctl enable docker
 	# Add current user to docker group
@@ -80,7 +78,6 @@ endif
 # Install gnmic
 install-gnmic:
 	@echo "📊 Installing gnmic..."
-	@echo $OS
 	# Download latest release
 	curl -sL https://github.com/openconfig/gnmic/releases/latest/download/gnmic_$$(curl -s https://api.github.com/repos/openconfig/gnmic/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')_Linux_x86_64.tar.gz | tar -xz
 	sudo mv gnmic /usr/local/bin/
@@ -90,7 +87,6 @@ install-gnmic:
 # Install Containerlab
 install-containerlab:
 	@echo "🧪 Installing Containerlab..."
-	@echo $OS
 	# Download and install latest release
 	bash -c "$$(curl -sL https://get.containerlab.dev)"
 	@echo "✅ Containerlab installed"
