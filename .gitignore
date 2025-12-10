@@ -7,5 +7,6 @@ wheels/
 *.egg-info
 clab-sim/
 sftp-keys/
+pyrsros/transceiver-serial-number.csv
 # Virtual environments
 .venv
