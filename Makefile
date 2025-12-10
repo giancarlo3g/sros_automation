@@ -46,27 +46,34 @@ install-docker:
 	@echo "🐳 Installing Docker..."
 ifeq ($(OS),debian)
 	# Remove old versions
-	sudo apt remove -y docker docker-engine docker.io containerd runc || true
+	sudo apt remove -y $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
 	# Install dependencies
+	# Add Docker's official GPG key:
 	sudo apt update
-	sudo apt install -y ca-certificates curl gnupg lsb-release
-	# Add Docker GPG key
-	sudo mkdir -p /etc/apt/keyrings
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-	# Add repository
-	echo "deb [arch=$$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-	# Install Docker
+	sudo apt install ca-certificates curl
+	sudo install -m 0755 -d /etc/apt/keyrings
+	sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+	sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+	# Add the repository to Apt sources:
+	sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+	Types: deb
+	URIs: https://download.docker.com/linux/debian
+	Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+	Components: stable
+	Signed-By: /etc/apt/keyrings/docker.asc
+	EOF
+
 	sudo apt update
-	sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+	sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 else ifeq ($(OS),rocky)
 	# Remove old versions
-	sudo dnf remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine || true
+	sudo dnf remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine podman runc
 	# Install dependencies
 	sudo dnf install -y yum-utils
-	# Add repository
-	sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-	# Install Docker
-	sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+	sudo dnf -y install dnf-plugins-core
+	sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+	sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 endif
 	# Start and enable Docker
 	sudo systemctl start docker
@@ -79,16 +86,14 @@ endif
 install-gnmic:
 	@echo "📊 Installing gnmic..."
 	# Download latest release
-	curl -sL https://github.com/openconfig/gnmic/releases/latest/download/gnmic_$$(curl -s https://api.github.com/repos/openconfig/gnmic/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')_Linux_x86_64.tar.gz | tar -xz
-	sudo mv gnmic /usr/local/bin/
-	sudo chmod +x /usr/local/bin/gnmic
+	bash -c "$(curl -sL https://get-gnmic.openconfig.net)"
 	@echo "✅ gnmic installed"
 
 # Install Containerlab
 install-containerlab:
 	@echo "🧪 Installing Containerlab..."
 	# Download and install latest release
-	bash -c "$$(curl -sL https://get.containerlab.dev)"
+	curl -sL https://containerlab.dev/setup | sudo -E bash -s "install-containerlab"
 	@echo "✅ Containerlab installed"
 
 # Setup Python project environment
