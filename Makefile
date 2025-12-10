@@ -18,10 +18,10 @@ detect-os:
 	@echo "Detecting operating system..."
 	@if [ -f /etc/debian_version ]; then \
 		echo "Detected: Debian/Ubuntu"; \
-		$(MAKE) OS=debian install-all; \
+		@export OS=debian && $(MAKE) install-all; \
 	elif [ -f /etc/rocky-release ] || [ -f /etc/redhat-release ]; then \
 		echo "Detected: Rocky Linux/RHEL"; \
-		$(MAKE) OS=rocky install-all; \
+		@export OS=rocky && $(MAKE) install-all; \
 	else \
 		echo "Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
