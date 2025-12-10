@@ -8,25 +8,30 @@ all: detect-os
 
 # This should be the internal target that requires OS to be set
 install-all: install-python install-uv install-docker install-gnmic install-containerlab
-	@echo "✅ All tools installed successfully!"
+	@echo "All tools installed successfully!"
+	@echo "You need to logout from this session before continue"
 
 # Detect operating system
 detect-os:
-	@echo "🔍 Detecting operating system..."
+	@echo "###################################################"
+	@echo "###################################################"
+	@echo "Detecting operating system..."
 	@if [ -f /etc/debian_version ]; then \
-		echo "📋 Detected: Debian/Ubuntu"; \
+		echo "Detected: Debian/Ubuntu"; \
 		$(MAKE) OS=debian install-all; \
 	elif [ -f /etc/rocky-release ] || [ -f /etc/redhat-release ]; then \
-		echo "📋 Detected: Rocky Linux/RHEL"; \
+		echo "Detected: Rocky Linux/RHEL"; \
 		$(MAKE) OS=rocky install-all; \
 	else \
-		echo "❌ Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
+		echo "Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
 	fi
 
 # Install Python
 install-python:
-	@echo "🐍 Installing Python..."
+	@echo "###################################################"
+	@echo "###################################################"
+	@echo "Installing Python..."
 ifeq ($(OS),debian)
 	sudo apt update
 	sudo apt install -y python3 python3-pip python3-venv
@@ -37,13 +42,17 @@ endif
 
 # Install uv
 install-uv:
+	@echo "###################################################"
+	@echo "###################################################"
 	@echo "⚡ Installing uv..."
 	curl -LsSf https://astral.sh/uv/install.sh | sh
 	@echo "✅ uv installed (restart shell or run: source ~/.bashrc)"
 
 # Install Docker
 install-docker:
-	@echo "🐳 Installing Docker..."
+	@echo "###################################################"
+	@echo "###################################################"
+	@echo "Installing Docker..."
 	curl -sL https://containerlab.dev/setup | sudo -E bash -s "install-docker"
 
 	# Start and enable Docker
@@ -51,53 +60,72 @@ install-docker:
 	sudo systemctl enable docker
 	# Add current user to docker group
 	sudo usermod -aG docker $$USER
-	@echo "✅ Docker installed (logout/login required for group changes)"
+	@echo "Docker installed (logout/login required for group changes)"
 
 # Install gnmic
 install-gnmic:
-	@echo "📊 Installing gnmic..."
+	@echo "###################################################"
+	@echo "###################################################"
+	@echo "Installing gnmic..."
 	# Download latest release
 	curl -sL https://get-gnmic.openconfig.net | sudo -E bash
 	@echo "✅ gnmic installed"
 
 # Install Containerlab
 install-containerlab:
-	@echo "🧪 Installing Containerlab..."
+	@echo "###################################################"
+	@echo "###################################################"
+	@echo "Installing Containerlab..."
 	# Download and install latest release
 	curl -sL https://containerlab.dev/setup | sudo -E bash -s "install-containerlab"
-	@echo "✅ Containerlab installed"
+	@echo "Containerlab installed"
 
 # Setup Python project environment
 setup-project:
+	@echo "###################################################"
+	@echo "###################################################"
 	@echo "🔧 Setting up Python project environment..."
 	@if [ -f pyproject.toml ]; then \
-		echo "📦 Found pyproject.toml, installing dependencies..."; \
+		echo "Found pyproject.toml, installing dependencies..."; \
 		~/.cargo/bin/uv sync; \
-		echo "✅ Project environment ready!"; \
-		echo "💡 Use 'uv run <script>' to run Python scripts"; \
+		echo "Project environment ready!"; \
+		echo "Use 'uv run <script>' to run Python scripts"; \
 	else \
-		echo "⚠️  No pyproject.toml found in current directory"; \
+		echo "No pyproject.toml found in current directory"; \
 	fi
 	@if [ -f gnmi/shell_gnmic.sh ]; then \
-		echo "🔧 Making gnmi/shell_gnmic.sh executable..."; \
+		echo "Making gnmi/shell_gnmic.sh executable..."; \
 		chmod +x gnmi/shell_gnmic.sh; \
-		echo "✅ gnmi/shell_gnmic.sh is now executable"; \
+		echo "gnmi/shell_gnmic.sh is now executable"; \
 	else \
-		echo "⚠️  gnmi/shell_gnmic.sh not found, skipping chmod"; \
+		echo "gnmi/shell_gnmic.sh not found, skipping chmod"; \
+	fi
+
+deploy-containerlab:
+	@echo "###################################################"
+	@echo "###################################################"
+	@echo "Deploying Containerlab topology..."
+	@if [ -f topo.clab.yml ]; then \
+		containerlab deploy; \
+		echo "Containerlab topology deployed!"; \
+	else \
+		echo "topo.clab.yml not found in current directory"; \
 	fi
 
 # Verify installations
 verify:
+	@echo "###################################################"
+	@echo "###################################################"
 	@echo "🔍 Verifying installations..."
-	@python3 --version || echo "❌ Python not found"
-	@~/.local/bin/uv --version || echo "❌ uv not found"
-	@docker --version || echo "❌ Docker not found"
-	@gnmic version || echo "❌ gnmic not found"
-	@containerlab version || echo "❌ Containerlab not found"
+	@python3 --version || echo "Python not found"
+	@~/.local/bin/uv --version || echo "uv not found"
+	@docker --version || echo "Docker not found"
+	@gnmic version || echo "gnmic not found"
+	@containerlab version || echo "Containerlab not found"
 
 # Clean up downloaded files
 clean:
-	@echo "🧹 Cleaning up..."
+	@echo "Cleaning up..."
 	rm -f gnmic
 
 # Help target
