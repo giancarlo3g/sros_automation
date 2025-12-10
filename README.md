@@ -38,6 +38,7 @@ Setting up the environment
     make setup-project
     ```
 5. Load SR-SIM container image
+    > **Note:** make sure you update the [topo.clab.yml](./topo.clab.yml) file to point to right name of the SR-SIM container image. Use `docker images` to check image name and tag.
 6. Copy SR-SIM license to parent directory
 7. Run containerlab
     ```

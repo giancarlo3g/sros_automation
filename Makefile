@@ -69,7 +69,7 @@ install-gnmic:
 	@echo "Installing gnmic..."
 	# Download latest release
 	curl -sL https://get-gnmic.openconfig.net | sudo -E bash
-	@echo "✅ gnmic installed"
+	@echo "gnmic installed"
 
 # Install Containerlab
 install-containerlab:
@@ -78,6 +78,7 @@ install-containerlab:
 	@echo "Installing Containerlab..."
 	# Download and install latest release
 	curl -sL https://containerlab.dev/setup | sudo -E bash -s "install-containerlab"
+	sudo usermod -aG clab_admins $$USER
 	@echo "Containerlab installed"
 
 # Setup Python project environment
