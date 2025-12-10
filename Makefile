@@ -24,6 +24,7 @@ detect-os::
 # Install Python
 install-python:
 	@echo "🐍 Installing Python..."
+	@echo $(OS)
 ifeq ($(OS),debian)
 	sudo apt update
 	sudo apt install -y python3 python3-pip python3-venv
@@ -35,12 +36,14 @@ endif
 # Install uv
 install-uv:
 	@echo "⚡ Installing uv..."
+	@echo $(OS)
 	curl -LsSf https://astral.sh/uv/install.sh | sh
 	@echo "✅ uv installed (restart shell or run: source ~/.bashrc)"
 
 # Install Docker
 install-docker:
 	@echo "🐳 Installing Docker..."
+	@echo $(OS)
 ifeq ($(OS),debian)
 	# Remove old versions
 	sudo apt remove -y docker docker-engine docker.io containerd runc || true
@@ -66,6 +69,7 @@ else ifeq ($(OS),rocky)
 	sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 endif
 	# Start and enable Docker
+	@echo $(OS)
 	sudo systemctl start docker
 	sudo systemctl enable docker
 	# Add current user to docker group
@@ -75,6 +79,7 @@ endif
 # Install gnmic
 install-gnmic:
 	@echo "📊 Installing gnmic..."
+	@echo $(OS)
 	# Download latest release
 	curl -sL https://github.com/openconfig/gnmic/releases/latest/download/gnmic_$$(curl -s https://api.github.com/repos/openconfig/gnmic/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')_Linux_x86_64.tar.gz | tar -xz
 	sudo mv gnmic /usr/local/bin/
@@ -84,6 +89,7 @@ install-gnmic:
 # Install Containerlab
 install-containerlab:
 	@echo "🧪 Installing Containerlab..."
+	@echo $(OS)
 	# Download and install latest release
 	bash -c "$$(curl -sL https://get.containerlab.dev)"
 	@echo "✅ Containerlab installed"
