@@ -57,7 +57,7 @@ install-docker:
 install-gnmic:
 	@echo "📊 Installing gnmic..."
 	# Download latest release
-	curl -sL https://get-gnmic.openconfig.net)
+	curl -sL https://get-gnmic.openconfig.net
 	@echo "✅ gnmic installed"
 
 # Install Containerlab
