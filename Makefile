@@ -18,10 +18,10 @@ detect-os:
 	@echo "Detecting operating system..."
 	@if [ -f /etc/debian_version ]; then \
 		echo "Detected: Debian/Ubuntu"; \
-		@export OS=debian && $(MAKE) install-all; \
+		$(MAKE) OS=debian install-all; \
 	elif [ -f /etc/rocky-release ] || [ -f /etc/redhat-release ]; then \
 		echo "Detected: Rocky Linux/RHEL"; \
-		@export OS=rocky && $(MAKE) install-all; \
+		$(MAKE) OS=rocky install-all; \
 	else \
 		echo "Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
@@ -32,11 +32,17 @@ install-python:
 	@echo "###################################################"
 	@echo "###################################################"
 	@echo "Installing Python..."
-ifeq ($(OS),debian)
-	sudo apt update
-	sudo apt install -y python3 python3-pip python3-venv
-else ifeq ($(OS),rocky)
-	sudo dnf install -y python3 python3-pip python3-venv
+	@if [ -f /etc/debian_version ]; then \
+		echo "Detected: Debian/Ubuntu"; \
+		sudo apt update; \
+		sudo apt install -y python3 python3-pip python3-venv; \
+	elif [ -f /etc/rocky-release ] || [ -f /etc/redhat-release ]; then \
+		echo "Detected: Rocky Linux/RHEL"; \
+		sudo dnf install -y python3 python3-pip python3-venv; \
+	else \
+		echo "Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
+		exit 1; \
+	fi
 endif
 	@echo "✅ Python installed"
 
