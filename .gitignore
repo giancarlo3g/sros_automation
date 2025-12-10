@@ -6,6 +6,6 @@ dist/
 wheels/
 *.egg-info
 clab-sim/
-
+sftp-keys/
 # Virtual environments
 .venv
