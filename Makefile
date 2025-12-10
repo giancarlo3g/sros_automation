@@ -4,11 +4,11 @@
 .PHONY: install-all install-python install-uv install-docker install-gnmic install-containerlab detect-os help
 
 # Default target
-install-all: detect-os install-python install-uv install-docker install-gnmic install-containerlab
+install-all: install-python install-uv install-docker install-gnmic install-containerlab
 	@echo "✅ All tools installed successfully!"
 
 # Detect operating system
-detect-os:
+detect-os::
 	@echo "🔍 Detecting operating system..."
 	@if [ -f /etc/debian_version ]; then \
 		echo "📋 Detected: Debian/Ubuntu"; \
@@ -20,9 +20,6 @@ detect-os:
 		echo "❌ Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
 	fi
-
-# Install all components based on detected OS
-install-all: install-python install-uv install-docker install-gnmic install-containerlab
 
 # Install Python
 install-python:
