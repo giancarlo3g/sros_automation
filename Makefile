@@ -43,7 +43,6 @@ install-python:
 		echo "Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
 	fi
-endif
 	@echo "✅ Python installed"
 
 # Install uv
