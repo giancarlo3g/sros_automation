@@ -1,7 +1,8 @@
 file list url sftp://admin:admin@172.20.20.1:2222/pysros/ router-instance "management" 
 file list tftp://172.20.20.1
-pyexec cf3:/watch.py "show router interface toe2c statistics"
+cp ./pysros/watch.py admin@ixrr6d-a:cf3:/
 
+pyexec cf3:/watch.py "show router interface toe2c statistics"
 pyexec cf3:/watch.py "show port 1/1/c1/1 statistics"
 
 /environment more false

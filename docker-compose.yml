@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+  # SFTP server
   sftp-server:
     image: atmoz/sftp
     container_name: sftp-server
@@ -8,19 +7,21 @@ services:
       - "2222:22"
     volumes:
       - ./pysros:/home/admin/pysros
-      # - ./sftp-keys:/home/giancarlo3g/.ssh/ssh_host_keys
     environment:
       - SFTP_USERS=admin:admin:1001:1001:upload
     restart: unless-stopped
     command: admin:admin:1001:1001:upload
-
+  # TFTP server from local Dockerfile
   tftp-server:
-    image: pghalliday/tftp
+    build:
+      context: .
+      dockerfile: Dockerfile.tftp
+      platforms:
+        - linux/arm64
+        - linux/amd64
     container_name: tftp-server
     ports:
       - "69:69/udp"
     volumes:
       - ./pysros:/var/tftpboot
     restart: unless-stopped
-    environment:
-      - TFTP_OPTIONS=--secure --create

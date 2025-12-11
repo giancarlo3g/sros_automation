@@ -34,13 +34,13 @@ Setting up the environment
     ```
 
 4. Setup Python environment
-    Make sure you logout and login again
+    Make sure you **logout** to restart the session
     ```
     cd sros_automation
     make setup-project
     ```
 5. Load SR-SIM container image
-    > **Note:** make sure you update the [topo.clab.yml](./topo.clab.yml) file to point to right name of the SR-SIM container image. Use `docker images` to check image name and tag.
+    > **Note:** make sure you update the [topo.clab.yml](./topo.clab.yml) file to point to the right name of the SR-SIM container image. Use `docker images` to check image name and tag. Another option is to update to an internal registry.
 6. Copy SR-SIM license to parent directory
 7. Run containerlab
     ```
