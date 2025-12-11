@@ -21,8 +21,8 @@ detect-os:
 		$(MAKE) OS=debian install-all; \
 	elif [ -f /etc/rocky-release ] || [ -f /etc/redhat-release ]; then \
 		echo "Detected: Rocky Linux/RHEL"; \
-		$(MAKE) OS=rocky install-all; \
 		sudo yum install -y yum-utils;\
+		$(MAKE) OS=rocky install-all; \
 	else \
 		echo "Unsupported OS. This Makefile supports Debian/Ubuntu and Rocky Linux/RHEL only."; \
 		exit 1; \
