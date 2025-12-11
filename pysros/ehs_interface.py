@@ -92,27 +92,6 @@ def disable_active_interfaces(connection, active_interfaces):
 
 def main():
     c = connect(host="127.0.0.1", username="admin", port="830", password="admin")
-
-# this seems like it shoudl reasonably work but it doesn't, re docs (leaflist) TODO
-#    cfg_path = '/nokia-conf:configure'
-#    cfg_payload = { 'router':{} }
-#    active_interfaces = find_interfaces(c, "router1", operStatusFilter="up")
-#    cfg_payload['router'] = [{"router-name":"Base"}]
-#    for interface in active_interfaces:
-#        continue
-#        cfg_payload['router'].append(            
-#                {
-#                    "interface-name":interface,
-#                    "admin-state":"disable",
-#                }
-#            )
-#
-#
-#    x = c.candidate.get(cfg_path).keys()
-#    print(x)
-#    print(cfg_payload)
-#    c.candidate.set(cfg_path,cfg_payload)
-
     trigger_event = get_event()
     if not trigger_event or trigger_event.subject[0].isdigit():
         c.disconnect()

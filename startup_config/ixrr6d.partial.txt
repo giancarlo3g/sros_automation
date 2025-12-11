@@ -5,6 +5,38 @@ configure {
         }
     }
     log {
+        log-events {
+            snmp event linkDown {
+                specific-throttle true
+                specific-throttle-limit 2
+                specific-throttle-interval 30
+            }
+        }
+        event-handling {
+            handler "ehs_demo" {
+                admin-state enable
+                entry 10 {
+                    script-policy {
+                        name "ehs_interface"
+                        owner "admin"
+                    }
+                }
+            }
+        }
+        event-trigger {
+            snmp event linkDown {
+                admin-state enable
+                entry 10 {
+                    admin-state enable
+                    filter "default"
+                    handler "ehs_demo"
+                    debounce {
+                        value 2
+                        time 1
+                    }
+                }
+            }
+        }
         filter "1001" {
             named-entry "10" {
                 description "Collect only events of major severity or higher"
@@ -15,6 +47,9 @@ configure {
                     }
                 }
             }
+        }
+        filter "default" {
+            default-action forward
         }
         log-id "99" {
             description "Default System Log"
@@ -66,9 +101,20 @@ configure {
             mtu 1522
         }
     }
+    python {
+        python-script "ehs_interface" {
+            admin-state enable
+            urls ["cf3:/ehs_interface.py"]
+            version python3
+        }
+        python-script "latest-ehs-output" {
+            admin-state enable
+            urls ["cf3:/latest-ehs-output.py"]
+            version python3
+        }
+    }
     router "Base" {
         interface "toe2c" {
-            admin-state enable
             port 1/1/c1/1
             ipv4 {
                 primary {
@@ -83,6 +129,37 @@ configure {
                 primary {
                     address 10.10.20.1
                     prefix-length 30
+                }
+            }
+        }
+    }
+    system {
+        management-interface {
+            cli {
+                md-cli {
+                    environment {
+                        command-alias {
+                            alias "latest-ehs-output" {
+                                admin-state enable
+                                python-script "latest-ehs-output"
+                                mount-point "/show" { }
+                            }
+                            alias "watch" {
+                                admin-state enable
+                                cli-command "pyexec \"cf3:/watch.py\""
+                                mount-point global { }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        script-control {
+            script-policy "ehs_interface" owner "admin" {
+                admin-state enable
+                results "cf3:/results_ehs_python/"
+                python-script {
+                    name "ehs_interface"
                 }
             }
         }

@@ -115,22 +115,53 @@ Run the following demos from a Linux host with IP connectivity to the device und
 
 #### On-box
 Connect to a router via ssh and run the commands below.
-- Copy Python program to the node
+Copy Python program to the node
 
     ```
-    scp ./pysros/watch.py admin@ixrr6d-a:cf3:/
+    scp ./pysros/*.py admin@ixrr6d-a:cf3:/
     ```
 
-- Create alias
-    ```
-    /environment more false
-    /environment command-alias alias "watch" admin-state enable
-    /environment command-alias alias "watch" cli-command "pyexec \"cf3:/watch.py\""
-    /environment command-alias { alias "watch" mount-point global }
-    ```
+Command-alias included in IXR-R6d node. Check commands in [commands.txt](pysros/commands.txt) file.
 
-- Run the command
+1. Watch
+    Run the command
 
-    ```
-    watch "show port 1/1/c1/1 statistics"
-    ```
+        ```
+        watch "show port 1/1/c1/1 statistics" | no-more
+        ```
+
+2. EHS script
+    - Connect to IXR-R6d and check interfaces. All interfaces should be up.
+        ```
+        ssh admin@ixrr6d-a
+        show router interface
+        ```
+    - Connect to IXR-e2c and disable port 1/1/c13/1
+        ```
+        ssh admin@ixre2c
+        edit-config global
+        /configure port 1/1/c13/1 admin-state disable
+        commit
+        ```
+    - Check other interface in IXR-R6d is down
+        ```
+        ssh admin@ixrr6d-a
+        show router interface
+        ```
+    - In IXR-R6d again, check latest EHS event
+        ```
+        show latest-ehs-output ehs*
+        ```
+    - Bring up interface in IXR-R6d and port in IXR-e2c back up.
+        ```
+        ssh admin@ixrr6d-a
+        edit-config global
+        /configure router interface "toe2c-2" admin-state enable
+        commit
+        ```
+        ```
+        ssh admin@ixre2c
+        edit-config global
+        /configure port 1/1/c13/1 admin-state enable
+        commit
+        ```
