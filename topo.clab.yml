@@ -35,3 +35,4 @@ topology:
 
   links:
     - endpoints: ["ixrr6d:1/1/c1/1", "ixre2c:1/1/c13/1"]
+    - endpoints: ["ixrr6d:1/1/c2/1", "ixre2c:1/1/c14/1"]

@@ -48,12 +48,34 @@ configure {
             mtu 9212
         }
     }
+    port 1/1/c14 {
+        admin-state enable
+        connector {
+            breakout c1-100g
+        }
+    }
+    port 1/1/c14/1 {
+        admin-state enable
+        ethernet {
+            mode network
+            mtu 1522
+        }
+    }
     router "Base" {
         interface "toR6d" {
             port 1/1/c13/1
             ipv4 {
                 primary {
                     address 10.10.10.2
+                    prefix-length 30
+                }
+            }
+        }
+        interface "toR6d-2" {
+            port 1/1/c14/1
+            ipv4 {
+                primary {
+                    address 10.10.20.2
                     prefix-length 30
                 }
             }

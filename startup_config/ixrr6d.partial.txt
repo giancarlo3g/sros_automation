@@ -53,12 +53,35 @@ configure {
             mtu 9212
         }
     }
+    port 1/1/c2 {
+        admin-state enable
+        connector {
+            breakout c1-100g
+        }
+    }
+    port 1/1/c2/1 {
+        admin-state enable
+        ethernet {
+            mode network
+            mtu 1522
+        }
+    }
     router "Base" {
         interface "toe2c" {
+            admin-state enable
             port 1/1/c1/1
             ipv4 {
                 primary {
                     address 10.10.10.1
+                    prefix-length 30
+                }
+            }
+        }
+        interface "toe2c-2" {
+            port 1/1/c2/1
+            ipv4 {
+                primary {
+                    address 10.10.20.1
                     prefix-length 30
                 }
             }
