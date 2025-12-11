@@ -176,11 +176,11 @@ def main():
 		if 	found_arguments['xpath'].startswith('show') or found_arguments['xpath'].startswith('tools') or\
 			found_arguments['xpath'].startswith('/show') or found_arguments['xpath'].startswith('/tools'):
 			#Case where a show command is monitored
+
 			ref_output = node_handle.cli(found_arguments['xpath'])
 			ref_output_split = ref_output.splitlines()
 			# Clear screen only if the script is launch from the node
 			if sros(): 
-				print(node_handle.cli("/environment more false"))
 				print(node_handle.cli("/clear screen"))
 			print(ref_output)
 			for i in range(0,found_arguments['repeat']):

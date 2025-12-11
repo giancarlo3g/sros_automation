@@ -1,11 +1,58 @@
 file list url sftp://admin:admin@172.20.20.1:2222/pysros/ router-instance "management" 
 file list tftp://172.20.20.1
-pyexec cf3:/watch.py "show router interface toe2c statistics"
+scp ./pysros/*.py admin@ixrr6d-a:cf3:/
 
+pyexec cf3:/watch.py "show router interface toe2c statistics"
 pyexec cf3:/watch.py "show port 1/1/c1/1 statistics"
 
+##### Watch Demo Configuration #####
+
+# Temporary
 /environment more false
 /environment command-alias alias "watch" admin-state enable
 /environment command-alias alias "watch" cli-command "pyexec \"cf3:/watch.py\""
 /environment command-alias { alias "watch" mount-point global }
+
+# Permanent
+/configure { system management-interface cli md-cli environment command-alias alias "watch" admin-state enable }
+/configure { system management-interface cli md-cli environment command-alias alias "watch" cli-command "pyexec \"cf3:/watch.py\"" }
+/configure { system management-interface cli md-cli environment command-alias alias "watch" mount-point global }
+
 watch "show port 1/1/c1/1 statistics"
+
+##### EHS Demo Configuration #####
+
+/file make-directory cf3:/results_ehs_python/
+/configure python python-script "ehs_interface" { admin-state enable }
+/configure python python-script "ehs_interface" { urls ["cf3:/ehs_interface.py"] }
+/configure python python-script "ehs_interface" { version python3 }
+/configure system script-control { script-policy "ehs_interface" owner "admin" admin-state enable }
+/configure system script-control { script-policy "ehs_interface" owner "admin" results "cf3:/results_ehs_python/" }
+/configure system script-control { script-policy "ehs_interface" owner "admin" python-script name "ehs_interface" }
+/configure log { event-handling handler "ehs_demo" }
+/configure log { event-handling handler "ehs_demo" admin-state enable }
+/configure log { event-handling handler "ehs_demo" entry 10 }
+/configure log { event-handling handler "ehs_demo" entry 10 script-policy }
+/configure log { event-handling handler "ehs_demo" entry 10 script-policy name "ehs_interface" }
+/configure log { event-handling handler "ehs_demo" entry 10 script-policy owner "admin" }
+/configure log { event-trigger snmp event linkDown }
+/configure log { event-trigger snmp event linkDown admin-state enable }
+/configure log { event-trigger snmp event linkDown entr 10 }
+/configure log event-trigger { snmp event linkDown entry 10 admin-state enable }
+/configure log event-trigger snmp event linkDown entry 10 debounce time 1 second value 2
+/configure log log-events snmp event linkDown specific-throttle true
+/configure log log-events snmp event linkDown specific-throttle-limit 2
+/configure log log-events snmp event linkDown specific-throttle-interval 30
+
+/configure log { event-trigger snmp event linkDown entry 10 handler "ehs_demo" }
+/configure { log event-trigger snmp event linkDown entry 10 filter "default" }
+/configure { log filter "default" }
+/configure { log filter "default" default-action forward }
+
+/configure { python python-script "latest-ehs-output" }
+/configure { python python-script "latest-ehs-output" admin-state enable }
+/configure { python python-script "latest-ehs-output" urls ["cf3:/latest-ehs-output.py"] }
+/configure { python python-script "latest-ehs-output" version python3 }
+/configure { system management-interface cli md-cli environment command-alias alias "latest-ehs-output" admin-state enable }
+/configure { system management-interface cli md-cli environment command-alias alias "latest-ehs-output" python-script "latest-ehs-output" }
+/configure { system management-interface cli md-cli environment command-alias alias "latest-ehs-output" mount-point "/show" }
