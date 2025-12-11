@@ -34,7 +34,9 @@ Setting up the environment
     ```
 
 4. Setup Python environment
+    Make sure you logout and login again
     ```
+    cd sros_automation
     make setup-project
     ```
 5. Load SR-SIM container image
