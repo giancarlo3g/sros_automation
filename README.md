@@ -92,7 +92,7 @@ Run the following demos from a Linux host with IP connectivity to the device und
 1. Get info
 
     ```
-    uv run pyrsros/get_info.py
+    uv run pysros/get_info.py
     ```
 
 2. Set hostname
