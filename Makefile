@@ -117,7 +117,6 @@ install-docker-rhel:
 # Add current user to docker group
 	sudo usermod -aG docker $$USER
 	@echo "Docker installed (logout/login required for group changes)"
-}
 
 # Install gnmic
 install-gnmic:
