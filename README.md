@@ -114,8 +114,7 @@ Run the following demos from a Linux host with IP connectivity to the device und
     ```
 
 #### On-box
-Connect to a router via ssh and run the commands below.
-Copy Python program to the node
+Copy Python program to the node by running the following command from the Linux host.
 
 ```
 scp ./pysros/*.py admin@ixrr6d-a:cf3:/
@@ -131,6 +130,20 @@ Command-alias included in IXR-R6d node. Check commands in [commands.txt](pysros/
     ```
 
 2. EHS script
+    - Login to IXR-R6d, create de directory to store EHS results, and reload python-script and script-policy.
+        ```
+        ssh admin@ixrr6d-a
+        /file make-directory cf3:/results_ehs_python/
+        tools perform python-script reload *
+        ```
+        ```
+        edit-config global
+        delete /configure system script-control script-policy "ehs_interface" owner "admin" python-script name "ehs_interface"
+        commit
+        /configure system script-control script-policy "ehs_interface" owner "admin" python-script name "ehs_interface"
+        commit
+        ```
+
     - Connect to IXR-R6d and check interfaces. All interfaces should be up.
         ```
         ssh admin@ixrr6d-a
