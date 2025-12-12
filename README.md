@@ -40,7 +40,7 @@ Setting up the environment
     make setup-project
     ```
 5. Load SR-SIM container image
-    > **Note:** make sure you update the [topo.clab.yml](./topo.clab.yml) file to point to the right name of the SR-SIM container image. Use `docker images` to check image name and tag. Another option is to update to an internal registry.
+    > **Note:** update the [topo.clab.yml](./topo.clab.yml) file to point to the right SR-SIM container image - use `docker images` to check image name and tag. Another option is using an internal registry.
 6. Copy SR-SIM license to parent directory
 7. Run containerlab
     ```
@@ -117,18 +117,18 @@ Run the following demos from a Linux host with IP connectivity to the device und
 Connect to a router via ssh and run the commands below.
 Copy Python program to the node
 
-    ```
-    scp ./pysros/*.py admin@ixrr6d-a:cf3:/
-    ```
+```
+scp ./pysros/*.py admin@ixrr6d-a:cf3:/
+```
 
 Command-alias included in IXR-R6d node. Check commands in [commands.txt](pysros/commands.txt) file.
 
 1. Watch
     Run the command
 
-        ```
-        watch "show port 1/1/c1/1 statistics" | no-more
-        ```
+    ```
+    watch "show port 1/1/c1/1 statistics" | no-more
+    ```
 
 2. EHS script
     - Connect to IXR-R6d and check interfaces. All interfaces should be up.
