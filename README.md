@@ -112,6 +112,10 @@ Run the following demos from a Linux host with IP connectivity to the device und
     ```
     uv run pysros/custom_show.py
     ```
+5. Show port utilization
+    ```
+    uv run pysros/show_port_util.py
+    ```
 
 #### On-box
 Copy Python program to the node by running the following command from the Linux host.

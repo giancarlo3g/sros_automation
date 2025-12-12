@@ -9,13 +9,13 @@ def print_table(rows):
     """Setup and print the SR OS style table"""
     # Define the columns that will be used in the table.  Each list item
     # is a tuple of (column width, heading).
-    cols = [(10, "Port"),
-            (10, "Adm"),
-            (10, "Opr"),
-            (20, "Part-Number"),
-            (15, "Serial-Number"),]
+    cols = [
+        (20, "Port"),
+        (20, "In Utilization %"),
+        (20, "Out Utilization %"),
+    ]
     # Initalize the Table object with the heading and columns.
-    table = Table("Port Transceiver Status with Serial Number", cols, showCount="Port")
+    table = Table("Ports and their current utilization", cols, showCount="Ports")
     # Print the output passing the data for the rows as an argument to the function.
     table.print(rows)
 
@@ -39,13 +39,17 @@ def get_data(connection):
     port_state = connection.running.get('/nokia-state:state/port')
 
     for PortID in sorted(port_state):
-        if port_state[PortID]['port-class'].data != 'connector' and port_state[port]['port-class'].data != 'anchor': 
-            if 'pxc' in port_name:
+        port_class = port_state[PortID]['port-class'].data
+        if port_class == 'connector' or port_class == 'anchor' or port_class == 'xcm-e' or port_class == 'gnss': 
+            continue
+        else:
+            if 'pxc' in PortID:
                 continue
             else:
-                in_utils = port_state[port_name]['ethernet']['statistics']['in-utilization'].data
-                out_utils = port_state[PortID]['ethernet']['statistics']['out-utilization'].data
-                port_info.append([PortID, in_utils, out_utils])
+                if port_state[PortID].get('ethernet'):
+                    in_utils = port_state[PortID]['ethernet']['statistics']['in-octets'].data
+                    out_utils = port_state[PortID]['ethernet']['statistics']['out-octets'].data
+                    port_info.append([PortID, in_utils, out_utils])
     print_table(port_info)
 
 
