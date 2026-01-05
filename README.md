@@ -117,6 +117,16 @@ Run the following demos from a Linux host with IP connectivity to the device und
     uv run pysros/show_port_util.py
     ```
 
+6. Get physical port information
+    ```
+    uv run pysros/get_port_info.py
+    ```
+    Interactive menu with options:
+    - Port Summary (admin/oper state, speed, description)
+    - Port Statistics (in/out octets, packets, errors)
+    - Transceiver Information (vendor part number, serial number)
+    - Port Detail (comprehensive info for a single port)
+
 #### On-box
 Copy Python program to the node by running the following command from the Linux host.
 
