@@ -11,8 +11,8 @@ def print_table(rows):
     # is a tuple of (column width, heading).
     cols = [
         (20, "Port"),
-        (20, "In Utilization %"),
-        (20, "Out Utilization %"),
+        (20, "In Utilization(oct)"),
+        (20, "Out Utilization(oct)"),
     ]
     # Initalize the Table object with the heading and columns.
     table = Table("Ports and their current utilization", cols, showCount="Ports")

@@ -18,7 +18,7 @@ pyexec cf3:/watch.py "show port 1/1/c1/1 statistics"
 /configure { system management-interface cli md-cli environment command-alias alias "watch" cli-command "pyexec \"cf3:/watch.py\"" }
 /configure { system management-interface cli md-cli environment command-alias alias "watch" mount-point global }
 
-watch "show port 1/1/c1/1 statistics"
+watch "show port 1/1/c1/1 statistics" | no-more
 
 ##### EHS Demo Configuration #####
 
