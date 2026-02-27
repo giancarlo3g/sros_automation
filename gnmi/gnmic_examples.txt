@@ -1,3 +1,4 @@
+gnmic -a ixre2c -u admin -p NokiaSros1! --insecure capabilities
 gnmic -a 172.20.20.2 -u admin -p NokiaSros1! --insecure get --path "/configure/router[router-name=Base]/interface[interface-name=toe2c]/"
 gnmic -a 172.20.20.2 -u admin -p NokiaSros1! --insecure get --format flat --path "/state/system/oper-name"
 gnmic -a 172.20.20.2 -u admin -p NokiaSros1! --insecure sub --format flat --path "/state/router[router-name=Base]/interface[interface-name=toe2c]/oper-state"

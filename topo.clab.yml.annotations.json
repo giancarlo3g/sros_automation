@@ -1,0 +1,19 @@
+{
+  "freeTextAnnotations": [],
+  "freeShapeAnnotations": [],
+  "groupStyleAnnotations": [],
+  "networkNodeAnnotations": [],
+  "nodeAnnotations": [
+    {
+      "id": "ixrr6d",
+      "interfacePattern": "1/1/c{n}/1"
+    },
+    {
+      "id": "ixre2c",
+      "interfacePattern": "1/1/c{n}/1"
+    }
+  ],
+  "edgeAnnotations": [],
+  "aliasEndpointAnnotations": [],
+  "viewerSettings": {}
+}
