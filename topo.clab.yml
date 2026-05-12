@@ -1,17 +1,13 @@
 name: sim
 prefix: ""
 
-mgmt:
-  network: net3         # management network name
-  ipv4-subnet: 172.20.20.0/24
-
 topology:
   defaults:
     kind: nokia_srsim
   kinds:
     nokia_srsim:
-      image: registry.srlinux.dev/pub/nokia_srsim:25.10.R1
-      license: ../license-srsim25.txt
+      image: nokia_srsim:25.10.R1
+      license: ../../../lic/license-srsim25.txt
     linux:
       image: ghcr.io/mfzhsn/network-multitool-sshd:0.0.2
   nodes:
@@ -20,18 +16,18 @@ topology:
       type: ixr-r6d
       components:
         - slot: A
+          type: cpiom-ixr-r6d
         - slot: 1
-          env:
-            NOKIA_SROS_CARD: iom-ixr-r6d
-            NOKIA_SROS_MDA_1: m5-100g-qsfp28
+          type: iom-ixr-r6d
+          mda:
+            - slot: 1
+              type: m5-100g-qsfp28
       startup-config: ./startup_config/ixrr6d.partial.txt
-      mgmt-ipv4: 172.20.20.2
     
     ixre2c: #IXR-e2c
       kind: nokia_srsim
       type: ixr-e2c
       startup-config: ./startup_config/ixre2c.partial.txt
-      mgmt-ipv4: 172.20.20.3
 
   links:
     - endpoints: ["ixrr6d:1/1/c1/1", "ixre2c:1/1/c13/1"]

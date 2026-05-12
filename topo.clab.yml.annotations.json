@@ -1,16 +1,25 @@
 {
   "freeTextAnnotations": [],
   "freeShapeAnnotations": [],
+  "trafficRateAnnotations": [],
   "groupStyleAnnotations": [],
   "networkNodeAnnotations": [],
   "nodeAnnotations": [
     {
       "id": "ixrr6d",
-      "interfacePattern": "1/1/c{n}/1"
+      "interfacePattern": "1/1/c{n}/1",
+      "position": {
+        "x": 380,
+        "y": 360
+      }
     },
     {
       "id": "ixre2c",
-      "interfacePattern": "1/1/c{n}/1"
+      "interfacePattern": "1/1/c{n}/1",
+      "position": {
+        "x": 520,
+        "y": 340
+      }
     }
   ],
   "edgeAnnotations": [],
